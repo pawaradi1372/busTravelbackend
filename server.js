@@ -8,14 +8,18 @@ connectDB();
 
 const app = express();
 
-// ✅ Enable CORS before routes
-app.use(
-  cors({
-    origin: 'http://localhost:5173', // React frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-  })
-);
+const allowedOrigins = ['http://localhost:5173', 'https://gobustravel.netlify.app'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow server-to-server calls/Postman
+    if (allowedOrigins.includes(origin)) callback(null, true);
+    else callback(new Error('Not allowed by CORS'));
+  },
+  methods: ['GET','POST','PUT','DELETE'],
+  credentials: true
+}));
+
 
 // ✅ Parse JSON requests
 app.use(express.json());
