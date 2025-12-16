@@ -11,7 +11,7 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://dainty-pudding-a4d72c.netlify.app'
+  'https://gobustravel.netlify.app/'
 ];
 
 app.use(cors({
